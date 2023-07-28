@@ -1,0 +1,9 @@
+<select>
+	<tr th:each="transport: ${transports}">
+		<option th:value="${transport.id}" th:tex="${transport.name}" value="${transport.id}">
+			<td th:text="${transport.name}"></td> du 
+			<td th:text="${transport.company}"></td>
+		</option>
+	</tr>
+</select>
+
