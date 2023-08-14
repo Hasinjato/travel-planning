@@ -36,4 +36,8 @@ public class TravelServiceImpl {
 	public void deleteTravelById(long id) {
 		this.travelRepository.deleteById(id);
 	}
+	
+	public long getNbTravel() {
+		return travelRepository.count();
+	}
 }

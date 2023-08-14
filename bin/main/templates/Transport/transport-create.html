@@ -54,7 +54,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--  notification end -->
 </div>
 <div class="top-nav clearfix">
-	<h2 class="text-center"> Formulaire ajout transport</h2>
+	<h2 class="text-center" style="display: inline-block;"> Formulaire d'ajout de transport</h2>
     <!--search & user info start-->
     <ul class="nav pull-right top-menu">
         <li>
@@ -64,11 +64,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <img alt="" src="images/2.png">
-                <span class="username">Username</span>
+                <span class="username" th:text="${#authentication.principal.username}" style="padding: 10px;"></span>
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
-                <li><a href="/loginn?logout"><i class="fa fa-key"></i> Log Out</a></li>
+                <li><a href="/loginn?logout"><i class="fa fa-key"></i>Se déconnecter</a></li>
             </ul>
         </li>
         <!-- user login dropdown end -->
@@ -109,6 +109,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <ul class="sub">
 						<li><a href="/transports">La liste</a></li>
 						<li><a class="active" href="/transports/create">Ajouter</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="/destinations">
+                        <i class="fa fa-map-marker"></i>
+                        <span>Les destinations</span>
+                    </a>
+                    <ul class="sub">
+						<li><a href="/destinations">La liste</a></li>
+						<li><a href="/destination/create">Ajouter</a></li>
                     </ul>
                 </li>
             </ul>            </div>

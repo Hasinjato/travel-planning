@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RestController;
 
+import com.travel.planning.model.Destination;
 import com.travel.planning.model.Transport;
 import com.travel.planning.model.Travel;
+import com.travel.planning.repository.DestinationRepository;
 import com.travel.planning.repository.TransportRepository;
 //import com.travel.planning.repository.TravelRepository;
 import com.travel.planning.service.TravelService;
@@ -31,18 +33,15 @@ public class TravelController {
 	
 	@Autowired
 	private TransportRepository transportrepository;
+	private DestinationRepository destinationrepository;
 	
 	
-
-	public TravelController(TransportRepository transportrepository) {
-		super();
-		this.transportrepository = transportrepository;
-	}
-
-	@Autowired
-	public TravelController(TravelServiceImpl travelService) {
+	public TravelController(TravelServiceImpl travelService, TransportRepository transportrepository,
+			DestinationRepository destinationrepository) {
 		super();
 		this.travelService = travelService;
+		this.transportrepository = transportrepository;
+		this.destinationrepository = destinationrepository;
 	}
 
 	@GetMapping("/travels")
@@ -57,6 +56,8 @@ public class TravelController {
 	{
 		List<Transport> transports = transportrepository.findAll();
 		model.addAttribute("transports", transports);
+		List<Destination> destinations = destinationrepository.findAll();
+		model.addAttribute("destinations", destinations);
 		Travel travel = new Travel();
 		model.addAttribute("travel", travel);
 		return "Travel/travel-create";
@@ -69,7 +70,7 @@ public class TravelController {
 		travelService.saveTravel(travel);
 		return "redirect:/travels";
 	}
-	
+
 	@GetMapping("/travel/edit/{id}")
 	public String showEditForm(@PathVariable(value="id") Long id, Model model)
 	{
@@ -78,6 +79,16 @@ public class TravelController {
 		Travel travel = travelService.getTravelById(id);
 		model.addAttribute("travel", travel);
 		return "Travel/update-travel";
+	}
+	
+	@GetMapping("/travel/detail/{id}")
+	public String showDetail(@PathVariable(value="id") Long id, Model model)
+	{
+		List<Transport> transports = transportrepository.findAll();
+		model.addAttribute("transports", transports);
+		Travel travel = travelService.getTravelById(id);
+		model.addAttribute("travel", travel);
+		return "Travel/travel-detail";
 	}
 	
 	@GetMapping("/travel/delete/{id}")

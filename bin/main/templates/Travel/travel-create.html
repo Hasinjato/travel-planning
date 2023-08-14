@@ -54,7 +54,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--  notification end -->
 </div>
 <div class="top-nav clearfix">
-	<h2 class="text-center"> Formulaire de voyage</h2>
+	<h2 class="text-center" style="display: inline-block;"> Formulaire de voyage</h2>
     <!--search & user info start-->
     <ul class="nav pull-right top-menu">
         <li>
@@ -64,11 +64,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <img alt="" src="images/2.png">
-                <span class="username">Username</span>
+                <span class="username" th:text="${#authentication.principal.username}" style="padding: 10px;"></span>
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
-                <li><a href="/loginn?logout"><i class="fa fa-key"></i> Log Out</a></li>
+                <li><a href="/loginn?logout"><i class="fa fa-key"></i>Se déconnecter</a></li>
             </ul>
         </li>
         <!-- user login dropdown end -->
@@ -111,6 +111,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="/transports/create">Ajouter</a></li>
                     </ul>
                 </li>
+                <li class="sub-menu">
+                    <a href="/destinations">
+                        <i class="fa fa-map-marker"></i>
+                        <span>Les destinations</span>
+                    </a>
+                    <ul class="sub">
+						<li><a href="/destinations">La liste</a></li>
+						<li><a href="/destination/create">Ajouter</a></li>
+                    </ul>
+                </li>
             </ul>            </div>
         <!-- sidebar menu end-->
     </div>
@@ -124,7 +134,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<form action="#" th:action="@{/travels/save}" th:object="${travel}" method="POST">
 				<div style="margin-bottom: 1.5em;">
 		            <label for="a" class="form-label">Où est votre destination? </label>
-		            <input type="text" class="form-control" id="a" th:field="*{destination}" required>
+		            <select class="form-control input-lg m-bot15" th:field="*{destination}" name="transport">
+						<option value="">Sélectionner une destination</option>
+						<option th:field="*{destination}" th:each="destination:${destinations}" th:text="${destination.name + ' de ' + destination.city + ' à ' + destination.countries}" th:value="${destination.name + ' à ' + destination.countries}"></option>
+					</select>
 	          	</div>
 				<div style="margin-bottom: 1.5em;">
 		            <label for="b" class="form-label">La date de début du voyage : </label>
@@ -147,15 +160,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	          	</div>
 				<div style="margin-bottom: 1.5em;">
 		            <label for="f" class="form-label">Le nom du voyageur : </label>
-		            <input type="text" class="form-control" id="f" th:field="*{travelerName}" required>
+		            <input type="text" class="form-control" id="f" th:field="*{travelerName}" autocomplete="off" required>
 	          	</div>
 				<div style="margin-bottom: 1.5em;">
 		            <label for="g" class="form-label">L'adresse e-mail du voyageur : </label>
-		            <input type="email" class="form-control" id="g" th:field="*{travelerEmail}" required>
+		            <input type="email" class="form-control" id="g" th:field="*{travelerEmail}" autocomplete="off" required>
 	          	</div>
 				<div style="margin-bottom: 1.5em;">
 		            <label for="h" class="form-label">La numéro téléphone du voyageur : </label>
-		            <input type="text" class="form-control" id="h" th:field="*{travelerPhone}" required>
+		            <input type="text" class="form-control" id="h" th:field="*{travelerPhone}" autocomplete="off" required>
 	          	</div>
 				<button class="btn btn-success" type="submit">Enregistrer</button>
 			</form>

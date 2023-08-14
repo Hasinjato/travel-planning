@@ -45,4 +45,8 @@ public class TransportServiceImpl {
 	public void deleteTransportById(long id) {
 		this.transportRepository.deleteById(id);
 	}
+	
+	public long getNbTransport() {
+		return transportRepository.count();
+	}
 }

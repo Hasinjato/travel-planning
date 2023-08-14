@@ -12,12 +12,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.travel.planning.model.User;
 import com.travel.planning.repository.UserRepository;
+import com.travel.planning.service.DestinationServiceImpl;
+import com.travel.planning.service.TransportServiceImpl;
+import com.travel.planning.service.TravelServiceImpl;
 import com.travel.planning.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 @Controller
 public class MainController {
 
+	private TravelServiceImpl travelService;
+	private TransportServiceImpl transportService;
+	private DestinationServiceImpl destinationService;
+	
 	@GetMapping("/loginn")
 	   public String login() {
 	      return "login";
@@ -25,12 +32,17 @@ public class MainController {
 	private UserRepository userRepository;
 	private UserService userService;
 	
-	public MainController(UserRepository userRepository, UserService userService) {
+		
+	public MainController(TravelServiceImpl travelService, TransportServiceImpl transportServiceImpl,
+			DestinationServiceImpl destinationServiceImpl, UserRepository userRepository, UserService userService) {
 		super();
+		this.travelService = travelService;
+		this.transportService = transportServiceImpl;
+		this.destinationService = destinationServiceImpl;
 		this.userRepository = userRepository;
 		this.userService = userService;
 	}
-	
+
 	@PostMapping("/loginn")
 	 public String processLogin(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) {
 		UserDetails user = userService.loadUserByUsername(username);
@@ -46,9 +58,22 @@ public class MainController {
 		return "redirect:/loginn?error";
 	}
 	
+	private int visitorCount = 0;
+	
 	@GetMapping("/home")
-	   public String showHomePage() {
-	      return "home";
+   public String showHomePage(Model model) {
+		visitorCount++;
+		long nbTransport = transportService.getNbTransport();
+		long nbTravel = travelService.getNbTravel();
+		long nbUser = userService.getNbUser();
+		long nbDest = destinationService.getNbDest();
+		model.addAttribute("nbTransport", nbTransport);
+		model.addAttribute("nbTravel", nbTravel);
+		model.addAttribute("nbUser", nbUser);
+		model.addAttribute("nbDest", nbDest);
+		model.addAttribute("visitorCount", visitorCount);
+		model.addAttribute("listEmployees", travelService.getAllTravels());
+		return "home";
 	}
 
 	@GetMapping("/")

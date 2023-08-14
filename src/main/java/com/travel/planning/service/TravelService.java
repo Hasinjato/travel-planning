@@ -19,4 +19,5 @@ public abstract class TravelService extends TravelServiceImpl {
 	public abstract void saveTravel(Travel travel);
 	public abstract Travel getTravelById(long id);
 	public abstract void deleteTravelById(long id);
+	public abstract long getNbTravel();
 }

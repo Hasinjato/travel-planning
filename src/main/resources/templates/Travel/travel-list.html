@@ -54,7 +54,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--  notification end -->
 </div>
 <div class="top-nav clearfix">
-	<h2 class="text-center"> La liste des voyage</h2>
+	<h2 class="text-center" style="display: inline-block;"> La liste des voyages</h2>
     <!--search & user info start-->
     <ul class="nav pull-right top-menu">
         <li>
@@ -64,11 +64,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <img alt="" src="images/2.png">
-                <span class="username">Username</span>
+                <span class="username" th:text="${#authentication.principal.username}" style="padding: 10px;"></span>
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
-                <li><a href="/loginn?logout"><i class="fa fa-key"></i> Log Out</a></li>
+                <li><a href="/loginn?logout"><i class="fa fa-key"></i>Se déconnecter</a></li>
             </ul>
         </li>
         <!-- user login dropdown end -->
@@ -103,12 +103,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
                 <li class="sub-menu">
                     <a href="/transports">
-                        <i class="fa fa-automobile"></i>
+                        <i class="fa fa-map-marker"></i>
                         <span>Les transports</span>
                     </a>
                     <ul class="sub">
 						<li><a href="/transports">La liste</a></li>
 						<li><a href="/transports/create">Ajouter</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="/destinations">
+                        <i class="fa fa-automobile"></i>
+                        <span>Les destinations</span>
+                    </a>
+                    <ul class="sub">
+						<li><a href="/destinations">La liste</a></li>
+						<li><a href="/destination/create">Ajouter</a></li>
                     </ul>
                 </li>
             </ul>   
@@ -128,10 +138,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<tr>
 						<th class="text-center">#</th>
 						<th class="text-center">Destination</th>
-						<th class="text-center" style="padding-right: 0 !important; padding-left: 0 !important;">Date de début</th>
-						<th class="text-center" style="padding-right: 0 !important; padding-left: 0 !important;">Date de fin</th>
-						<th class="text-center">Description</th>
-						<th class="text-center" style="padding-right: 0 !important;padding-left: 0 !important;">Transport</th>
+						<th class="text-center">Date de début</th>
+						<th class="text-center">Date de fin</th>
 						<th class="text-center">Nom du voyageur</th>
 						<th class="text-center">Email du voyageur</th>
 						<th class="text-center">Téléphone du du voyageur</th>
@@ -144,12 +152,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<td th:text="${employee.destination}"></td>
 					<td th:text="${employee.startDate}" style="width: 100px; padding-right: 0 !important; padding-left: 0 !important;"></td>
 					<td th:text="${employee.endDate}" style="width: 100px; padding-right: 0 !important; padding-left: 0 !important;"></td>
-					<td th:text="${employee.description}"></td>
-					<td th:text="${employee.transport}"></td>
 					<td th:text="${employee.travelerName}"></td>
 					<td><a th:href="@{mailto:{mail}(mail=${employee.travelerEmail})}" th:text="${employee.travelerEmail}"></a></td>
 					<td><a th:href="@{tel:{tel}(tel=${employee.travelerPhone})}" th:text="${employee.travelerPhone}"></a></td>
-					<td><a th:href="@{/travel/edit/{id}(id=${employee.id})}" class="btn btn-primary" style="margin-bottom: 15px;">Modifier</a>
+					<td>
+					<a th:href="@{/travel/detail/{id}(id=${employee.id})}" class="btn btn-info" style="margin-bottom: 5px;">Détail</a>
+					<a th:href="@{/travel/edit/{id}(id=${employee.id})}" class="btn btn-primary" style="margin-bottom: 5px;">Modifier</a>
 					<a th:href="@{/travel/delete/{id}(id=${employee.id})}" class="btn btn-danger">Supprimer</a></td>
 					</tr>
 				</tbody>

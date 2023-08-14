@@ -6,5 +6,6 @@ import com.travel.planning.model.User;
 import com.travel.planning.web.dto.UserRegistrationDto;
 
 public interface UserService extends UserDetailsService {
-	User save(UserRegistrationDto registrationDto); 
+	User save(UserRegistrationDto registrationDto);
+	public abstract long getNbUser();
 }

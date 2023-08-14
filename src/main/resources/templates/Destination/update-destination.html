@@ -54,7 +54,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--  notification end -->
 </div>
 <div class="top-nav clearfix">
-	<h2 class="text-center" style="display: inline-block;"> Modifier une moyen de transport</h2>
+	<h2 class="text-center" style="display: inline-block;"> Modifier une destination</h2>
     <!--search & user info start-->
     <ul class="nav pull-right top-menu">
         <li>
@@ -92,7 +92,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
                 
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a href="/travels">
                         <i class="fa fa-plane"></i>
                         <span>Les voyages</span>
                     </a>
@@ -102,17 +102,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </ul>
                 </li>
                 <li class="sub-menu">
-                    <a class="active" href="/transports">
+                    <a class="" href="/transports">
                         <i class="fa fa-automobile"></i>
                         <span>Les transports</span>
                     </a>
                     <ul class="sub">
-						<li><a href="/transports">La liste</a></li>
-						<li><a class="active" href="/transports/create">Ajouter</a></li>
+						<li><a class="active" href="/transports">La liste</a></li>
+						<li><a href="/transport/create">Ajouter</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">
-                    <a href="/destinations">
+                    <a class="active" href="/destinations">
                         <i class="fa fa-map-marker"></i>
                         <span>Les destinations</span>
                     </a>
@@ -131,19 +131,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<section class="wrapper">
 		<div class="col-6" style="width:50%; margin:15px auto;" >
 			<h2 class="m-5 text-info text-center" style="margin-bottom:15px;">Voici le formulaire</h2>
-			<form action="#" th:action="@{/transport/saveedit}" th:object="${transport}" method="POST">
+			<form action="#" th:action="@{/destination/saveedit}" th:object="${destination}" method="POST">
 		            <input type="hidden" th:field="*{id}">
 				<div style="margin-bottom: 1.5em;">
-		            <label for="a" class="form-label">Le type du moyen de transport </label>
+		            <label for="a" class="form-label">Le nom du destination : </label>
 		            <input type="text" class="form-control" id="a" th:field="*{name}" required>
 	          	</div>
 				<div style="margin-bottom: 1.5em;">
-		            <label for="b" class="form-label">La compagnie appartient cette transport : </label>
-		            <input type="text" class="form-control" id="b" th:field="*{company}" required>
+		            <label for="b" class="form-label">Le nom du pays : </label>
+		            <input type="text" class="form-control" id="b" th:field="*{countries}" required>
+	          	</div>
+				<div style="margin-bottom: 1.5em;">
+		            <label for="b" class="form-label">Le nom du ville : </label>
+		            <input type="text" class="form-control" id="b" th:field="*{city}" required>
 	          	</div>
 				<button class="btn btn-success" type="submit">Enregistrer</button>
 			</form>
-			<a class="btn btn-link" href="/transports">Retourner à la liste</a>
+			<a class="btn btn-link" href="/destinations">Retourner à la liste</a>
 		</div>
 		
 		<div class="agil-info-calendar">

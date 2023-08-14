@@ -30,8 +30,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //calendar -->
 <!-- //font-awesome icons -->
 <script src="BackOfficeSignalement/js/jquery2.0.3.min.js"></script>
+<!-- charts -->
 <script src="BackOfficeSignalement/js/raphael-min.js"></script>
 <script src="BackOfficeSignalement/js/morris.js"></script>
+<link rel="stylesheet" href="BackOfficeSignalement/css/morris.css">
+<!-- //charts -->
 </head>
 <body>
 <section id="container">
@@ -54,7 +57,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--  notification end -->
 </div>
 <div class="top-nav clearfix">
-	<h2 class="text-center"> Bienvenue sur la planification de voyage</h2>
+	<h2 class="text-center" style="display: inline-block;"> Bienvenue sur la planification de voyage</h2>
     <!--search & user info start-->
     <ul class="nav pull-right top-menu">
         <li>
@@ -64,11 +67,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <img alt="" src="images/2.png">
-                <span class="username">Username</span>
+                <span class="username" th:text="${#authentication.principal.username}" style="padding: 10px;"></span>
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
-                <li><a href="/loginn?logout"><i class="fa fa-key"></i> Log Out</a></li>
+                <li><a href="/loginn?logout"><i class="fa fa-key"></i>Se déconnecter</a></li>
             </ul>
         </li>
         <!-- user login dropdown end -->
@@ -110,6 +113,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="/transports/create">Ajouter</a></li>
                     </ul>
                 </li>
+                <li class="sub-menu">
+                    <a href="/destinations">
+                        <i class="fa fa-map-marker"></i>
+                        <span>Les destinations</span>
+                    </a>
+                    <ul class="sub">
+						<li><a href="/destinations">La liste</a></li>
+						<li><a href="/destination/create">Ajouter</a></li>
+                    </ul>
+                </li>
             </ul>            </div>
         <!-- sidebar menu end-->
     </div>
@@ -123,12 +136,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-3 market-update-gd">
 				<div class="market-update-block clr-block-2">
 					<div class="col-md-4 market-update-right">
-						<i class="fa fa-eye"> </i>
+						<i class="fa fa-bus" style="font-size: 3em;color: #fff;"> </i>
 					</div>
 					 <div class="col-md-8 market-update-left">
-					 <h4>Visiteurs</h4>
-					<h3>15</h3>
-					<p>Nous somme ravi de pour votre visite</p>
+					 <h4>Transport</h4>
+					<h3>[[${nbTransport}]]</h3>
+					<p>Nous somme ravi, pour votre transport</p>
 				  </div>
 				  <div class="clearfix"> </div>
 				</div>
@@ -136,11 +149,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-3 market-update-gd">
 				<div class="market-update-block clr-block-1">
 					<div class="col-md-4 market-update-right">
-						<i class="fa fa-users" ></i>
+						<i class="fa fa-users" style="font-size: 3em;color: #fff;"></i>
 					</div>
 					<div class="col-md-8 market-update-left">
 					<h4>Utilisateur</h4>
-						<h3>6</h3>
+						<h3>[[${nbUser}]]</h3>
 						<p>Les utilisateurs, ce sont notre receptionniste pour enregistrer votre voyage</p>
 					</div>
 				  <div class="clearfix"> </div>
@@ -149,11 +162,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-3 market-update-gd">
 				<div class="market-update-block clr-block-3">
 					<div class="col-md-4 market-update-right">
-						<i class="fa fa-usd"></i>
+						<i class="fa fa-plane" style="font-size: 3em;color: #fff;"></i>
 					</div>
 					<div class="col-md-8 market-update-left">
 						<h4>Voyage</h4>
-						<h3>4</h3>
+						<h3>[[${nbTravel}]]</h3>
 						<p>Actuellement, voici le nombre de voyage</p>
 					</div>
 				  <div class="clearfix"> </div>
@@ -162,12 +175,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-3 market-update-gd">
 				<div class="market-update-block clr-block-4">
 					<div class="col-md-4 market-update-right">
-						<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+						<i class="fa fa-map"  style="font-size: 3em;color: #fff;"></i>
 					</div>
 					<div class="col-md-8 market-update-left">
-						<h4>Other</h4>
-						<h3>0</h3>
-						<p>Autre utilisation de ce système</p>
+						<h4>Destination</h4>
+						<h3>[[${nbDest}]]</h3>
+						<p>Ce sont des destinations touristiques connues</p>
 					</div>
 				  <div class="clearfix"> </div>
 				</div>
@@ -176,7 +189,35 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>	
 		<!-- //market-->
 		<div class="col-md-12" >
-			<h1 style="margin:2%; text-align: center;">Une site pour accompagner pour votre voyage</h1>
+			<h1 style="margin:2%; text-align: center;">Une application pour aider les agences de voyage</h1>
+		</div>
+		<div class="col-md-7 text-center">
+			<div>
+				<div class="chart_agile_top">
+					<div class="chart_agile_bottom">
+						<div id="graph4"></div>
+						<script>
+							var nbTransp = JSON.parse("[[${nbTransport}]]");
+							var nbDest = JSON.parse("[[${nbDest}]]");
+							var nbTrav = JSON.parse("[[${nbTravel}]]");
+							var _100 = nbTransp+nbDest+nbTrav;
+							var transpPerc = (nbTransp*100)/_100;
+							var destPerc = (nbDest*100)/_100;
+							var travPerc = (nbTrav*100)/_100;
+							Morris.Donut({
+							  element: 'graph4',
+							  data: [
+								{value: nbTrav, label: 'Voyage', formatted: 'à environ '+transpPerc+'%' },
+								{value: nbTransp, label: 'Transport', formatted: 'à environ '+destPerc+'%' },
+								{value: nbDest, label: 'Destination', formatted: 'à environ '+travPerc+'%' },
+							  ],
+							  formatter: function (x, data) { return data.formatted; }
+							});
+						</script>
+
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="agil-info-calendar">
 		<!-- calendar -->

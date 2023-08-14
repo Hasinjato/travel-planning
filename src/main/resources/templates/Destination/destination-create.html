@@ -14,24 +14,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- bootstrap-css -->
-<link rel="stylesheet" href="../../BackOfficeSignalement/css/bootstrap.min.css" >
+<link rel="stylesheet" href="../BackOfficeSignalement/css/bootstrap.min.css" >
 <!-- //bootstrap-css -->
 <!-- Custom CSS -->
-<link href="../../BackOfficeSignalement/css/style.css" rel='stylesheet' type='text/css' />
-<link href="../../BackOfficeSignalement/css/style-responsive.css" rel="stylesheet"/>
+<link href="../BackOfficeSignalement/css/style.css" rel='stylesheet' type='text/css' />
+<link href="../BackOfficeSignalement/css/style-responsive.css" rel="stylesheet"/>
 <!-- font CSS -->
 <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 <!-- font-awesome icons -->
-<link rel="stylesheet" href="../../BackOfficeSignalement/css/font.css" type="text/css"/>
-<link href="../../BackOfficeSignalement/css/font-awesome.css" rel="stylesheet"> 
-<link rel="stylesheet" href="../../BackOfficeSignalement/css/morris.css" type="text/css"/>
+<link rel="stylesheet" href="../BackOfficeSignalement/css/font.css" type="text/css"/>
+<link href="../BackOfficeSignalement/css/font-awesome.css" rel="stylesheet"> 
+<link rel="stylesheet" href="../BackOfficeSignalement/css/morris.css" type="text/css"/>
 <!-- calendar -->
-<link rel="stylesheet" href="../../BackOfficeSignalement/css/monthly.css">
+<link rel="stylesheet" href="../BackOfficeSignalement/css/monthly.css">
 <!-- //calendar -->
 <!-- //font-awesome icons -->
-<script src="../../BackOfficeSignalement/js/jquery2.0.3.min.js"></script>
-<script src="../../BackOfficeSignalement/js/raphael-min.js"></script>
-<script src="../../BackOfficeSignalement/js/morris.js"></script>
+<script src="../BackOfficeSignalement/js/jquery2.0.3.min.js"></script>
+<script src="../BackOfficeSignalement/js/raphael-min.js"></script>
+<script src="../BackOfficeSignalement/js/morris.js"></script>
 </head>
 <body>
 <section id="container">
@@ -54,7 +54,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--  notification end -->
 </div>
 <div class="top-nav clearfix">
-	<h2 class="text-center" style="display: inline-block;"> Modifier une moyen de transport</h2>
+	<h2 class="text-center" style="display: inline-block;"> Formulaire d'ajout de destination</h2>
     <!--search & user info start-->
     <ul class="nav pull-right top-menu">
         <li>
@@ -97,7 +97,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Les voyages</span>
                     </a>
                     <ul class="sub">
-						<li><a href="/travels">La liste</a></li>
+						<li><a href="javascript:;">La liste</a></li>
 						<li><a href="/travels/create">Ajouter</a></li>
                     </ul>
                 </li>
@@ -112,13 +112,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </ul>
                 </li>
                 <li class="sub-menu">
-                    <a href="/destinations">
+                    <a class="active" href="/destinations">
                         <i class="fa fa-map-marker"></i>
                         <span>Les destinations</span>
                     </a>
                     <ul class="sub">
 						<li><a href="/destinations">La liste</a></li>
-						<li><a href="/destination/create">Ajouter</a></li>
+						<li><a class="active" href="/destination/create">Ajouter</a></li>
                     </ul>
                 </li>
             </ul>            </div>
@@ -130,20 +130,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <section id="main-content">
 	<section class="wrapper">
 		<div class="col-6" style="width:50%; margin:15px auto;" >
-			<h2 class="m-5 text-info text-center" style="margin-bottom:15px;">Voici le formulaire</h2>
-			<form action="#" th:action="@{/transport/saveedit}" th:object="${transport}" method="POST">
-		            <input type="hidden" th:field="*{id}">
+			<h2 class="m-5 text-info text-center" style="margin-bottom:15px;">Ajouter une moyen de transport</h2>
+			<form action="#" th:action="@{/destination/save}" th:object="${destination}" method="POST">
 				<div style="margin-bottom: 1.5em;">
-		            <label for="a" class="form-label">Le type du moyen de transport </label>
-		            <input type="text" class="form-control" id="a" th:field="*{name}" required>
+		            <label for="a" class="form-label">Le nom du destination : </label>
+		            <input type="text" class="form-control" id="a" th:field="*{name}" autocomplete="off" required>
 	          	</div>
 				<div style="margin-bottom: 1.5em;">
-		            <label for="b" class="form-label">La compagnie appartient cette transport : </label>
-		            <input type="text" class="form-control" id="b" th:field="*{company}" required>
+		            <label for="b" class="form-label">Le nom du pays : </label>
+		            <input type="text" class="form-control" id="b" th:field="*{countries}" autocomplete="off" required>
+	          	</div>
+				<div style="margin-bottom: 1.5em;">
+		            <label for="b" class="form-label">Le nom du ville : </label>
+		            <input type="text" class="form-control" id="b" th:field="*{city}" autocomplete="off" required>
 	          	</div>
 				<button class="btn btn-success" type="submit">Enregistrer</button>
 			</form>
-			<a class="btn btn-link" href="/transports">Retourner à la liste</a>
+			<a class="btn btn-link" href="/destinations">Retourner à la liste</a>
 		</div>
 		
 		<div class="agil-info-calendar">
@@ -261,13 +264,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </section>
 <!--main content end-->
 </section>
-<script src="../../BackOfficeSignalement/js/bootstrap.js"></script>
-<script src="../../BackOfficeSignalement/js/jquery.dcjqaccordion.2.7.js"></script>
-<script src="../../BackOfficeSignalement/js/scripts.js"></script>
-<script src="../../BackOfficeSignalement/js/jquery.slimscroll.js"></script>
-<script src="../../BackOfficeSignalement/js/jquery.nicescroll.js"></script>
+<script src="../BackOfficeSignalement/js/bootstrap.js"></script>
+<script src="../BackOfficeSignalement/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="../BackOfficeSignalement/js/scripts.js"></script>
+<script src="../BackOfficeSignalement/js/jquery.slimscroll.js"></script>
+<script src="../BackOfficeSignalement/js/jquery.nicescroll.js"></script>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
-<script src="../../BackOfficeSignalement/js/jquery.scrollTo.js"></script>
+<script src="../BackOfficeSignalement/js/jquery.scrollTo.js"></script>
 <!-- morris JavaScript -->	
 <script>
 	$(document).ready(function() {
@@ -325,7 +328,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 	</script>
 <!-- calendar -->
-	<script type="text/javascript" src="../../BackOfficeSignalement/js/monthly.js"></script>
+	<script type="text/javascript" src="../BackOfficeSignalement/js/monthly.js"></script>
 	<script type="text/javascript">
 		$(window).load( function() {
 

@@ -12,4 +12,5 @@ public abstract class TransportService extends TransportServiceImpl {
 	public abstract void saveTransport(Transport travel);
 	public abstract Transport getTransportById(long id);
 	public abstract void deleteTransportById(long id);
+	public abstract long getNbTransport();
 }

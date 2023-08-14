@@ -1,5 +1,6 @@
 package com.travel.planning.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,15 +14,15 @@ public class Destination {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "country")
 	private String country;
 	
+	@Column(name = "city")
 	private String city;
 	
-	private String attraction;
-	
-	private Long duration;
 	
 	
 	public Long getId() {
@@ -35,7 +36,7 @@ public class Destination {
 	@Override
 	public String toString() {
 		return "Destination [id=" + id + ", name=" + name + ", countries=" + country + ", city=" + city
-				+ ", attraction=" + attraction + ", duration=" + duration + "]";
+				+ "]";
 	}
 
 	public Destination() {
@@ -43,14 +44,12 @@ public class Destination {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Destination(Long id, String name, String country, String city, String attraction, Long duration) {
+	public Destination(Long id, String name, String country, String city) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.country = country;
 		this.city = city;
-		this.attraction = attraction;
-		this.duration = duration;
 	}
 	
 	public String getName() {
@@ -75,21 +74,5 @@ public class Destination {
 
 	public void setCity(String city) {
 		this.city = city;
-	}
-
-	public String getAttraction() {
-		return attraction;
-	}
-
-	public void setAttraction(String attraction) {
-		this.attraction = attraction;
-	}
-
-	public Long getDuration() {
-		return duration;
-	}
-
-	public void setDuration(Long duration) {
-		this.duration = duration;
 	}
 }

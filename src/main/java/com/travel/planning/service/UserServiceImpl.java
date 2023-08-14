@@ -56,4 +56,10 @@ public class UserServiceImpl implements UserService {
 		return collection.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 	}
 
+	@Override
+	public long getNbUser() {
+		// TODO Auto-generated method stub
+		return userRepository.count();
+	}
+
 }
